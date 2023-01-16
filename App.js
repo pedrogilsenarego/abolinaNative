@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
-import Home from "./screens/Home";
+import Home from "./screens/Home/Home";
 import Details from "./screens/Details";
 import { useFonts } from "expo-font";
 
