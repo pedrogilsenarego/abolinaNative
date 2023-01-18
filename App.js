@@ -3,6 +3,7 @@ import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import Home from "./src/screens/Home/Home";
 import Details from "./src/screens/Details";
 import { useFonts } from "expo-font";
+import MainLayout from "./src/layouts/MainLayout";
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,14 @@ const App = () => {
     InterLight: require("./assets/fonts/Inter-Light.ttf"),
   });
 
+  const HomeScreen = () => {
+    return (
+      <MainLayout>
+        <Home />
+      </MainLayout>
+    );
+  };
+
   if (!loaded) return null;
 
   return (
@@ -31,7 +40,7 @@ const App = () => {
         screenOptions={{ headerShown: false }}
         initialRouteName='Home'
       >
-        <Stack.Screen name='Home' component={Home} />
+        <Stack.Screen name='Home' component={HomeScreen} />
         <Stack.Screen name='Details' component={Details} />
       </Stack.Navigator>
     </NavigationContainer>
