@@ -12,10 +12,9 @@ interface Props {
 const Product = ({ product, style }: Props) => {
   const navigation = useNavigation();
   return (
-
     <TouchableOpacity
       // @ts-ignore
-      onPress={() => navigation.navigate(ROUTE_PATHS.BOOK, { product })}
+      onPress={() => navigation.navigate(ROUTE_PATHS.BOOK, { book: product })}
       style={[styles.container, style]}
     >
       <Image

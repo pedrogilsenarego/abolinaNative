@@ -3,3 +3,9 @@ export interface BookType  {
   coverPage: string;
   title: string;
 }
+
+export type RootStackParamList = {
+  Home: undefined;
+  Book: { book: BookType };
+  
+};
