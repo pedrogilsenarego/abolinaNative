@@ -1,31 +1,43 @@
-import { View, Text, Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import React from "react";
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import { BookType } from "../../../types/types";
+import { ROUTE_PATHS } from "../../../constants/routes";
 
 interface Props {
-  product: {
-    image: string;
-    coverPage: string;
-    title: string;
-  };
+  product: BookType;
+  style?: object;
 }
 
-const Product = ({ product }: Props) => {
+const Product = ({ product, style }: Props) => {
+  const navigation = useNavigation();
   return (
-    <View
-      style={{
-        width: "31%",
-        alignItems: "center",
-        margin: `${7 / 6}%`,
 
-        padding: 8,
-      }}
+    <TouchableOpacity
+      // @ts-ignore
+      onPress={() => navigation.navigate(ROUTE_PATHS.BOOK, { product })}
+      style={[styles.container, style]}
     >
       <Image
-        style={{ width: "100%", height: 150 }}
+        style={styles.image}
         source={{ uri: product.coverPage.toString() }}
       />
       <Text>{product.title}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    width: "31%",
+    alignItems: "center",
+    margin: `${7 / 6}%`,
+    padding: 8,
+  },
+  image: {
+    width: "100%",
+    height: 150,
+  },
+});
 
 export default Product;

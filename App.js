@@ -1,9 +1,10 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import Home from "./src/screens/Home/Home";
-import Details from "./src/screens/Details";
+import Book from "./src/screens/Book";
 import { useFonts } from "expo-font";
 import MainLayout from "./src/layouts/MainLayout";
+import { ROUTE_PATHS } from "./src/constants/routes";
 
 const Stack = createStackNavigator();
 
@@ -15,6 +16,18 @@ const theme = {
   },
 };
 
+const HomeScreen = () => {
+  return (
+    <MainLayout>
+      <Home />
+    </MainLayout>
+  );
+};
+
+const BookScreen = () => {
+  return <Book />;
+};
+
 const App = () => {
   const [loaded] = useFonts({
     InterBold: require("./assets/fonts/Inter-Bold.ttf"),
@@ -24,24 +37,16 @@ const App = () => {
     InterLight: require("./assets/fonts/Inter-Light.ttf"),
   });
 
-  const HomeScreen = () => {
-    return (
-      <MainLayout>
-        <Home />
-      </MainLayout>
-    );
-  };
-
   if (!loaded) return null;
 
   return (
     <NavigationContainer theme={theme}>
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName='Home'
+        initialRouteName={ROUTE_PATHS.HOME}
       >
-        <Stack.Screen name='Home' component={HomeScreen} />
-        <Stack.Screen name='Details' component={Details} />
+        <Stack.Screen name={ROUTE_PATHS.HOME} component={HomeScreen} />
+        <Stack.Screen name={ROUTE_PATHS.BOOK} component={BookScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
