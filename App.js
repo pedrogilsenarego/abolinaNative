@@ -24,8 +24,9 @@ const HomeScreen = () => {
   );
 };
 
-const BookScreen = () => {
-  return <Book />;
+const BookScreen = ({ route }) => {
+  const { book } = route.params;
+  return <Book book={book} />;
 };
 
 const App = () => {
