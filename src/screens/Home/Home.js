@@ -20,7 +20,6 @@ const Home = () => {
     });
   }, []);
 
-  const gap = 10;
   return (
     <View style={{ marginHorizontal: 10 }}>
       <FlatList
