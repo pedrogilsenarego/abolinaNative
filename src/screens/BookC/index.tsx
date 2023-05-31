@@ -2,28 +2,42 @@ import React from "react";
 import { Button, Text, View, StyleSheet, Image } from "react-native";
 import { BookType } from "../../types/types";
 import { useNavigation } from "@react-navigation/native";
+import { i18n } from "../../translations/i18n";
+import { useSelector } from "react-redux";
+import { State } from "../../slicer/types";
+import { Book } from "../../slicer/books/books.types";
 
 interface Props {
-  book: BookType;
+  book: Book;
 }
 
-const Book = ({ book }: Props) => {
+const BookC = ({ book }: Props) => {
   const navigation = useNavigation();
+  const lang = useSelector<State, string>((state) => state.general.lang);
 
   return (
     <View style={styles.mainContainer}>
       <View style={styles.container}>
         <View style={styles.imageContainer}>
-          <Image style={styles.image} source={{ uri: book.coverPage.toString() }} />
+          <Image
+            style={styles.image}
+            source={{ uri: book.coverPage.toString() }}
+          />
         </View>
         <View style={styles.detailsContainer}>
           <Text style={styles.title}>{book?.title}</Text>
           <Text style={styles.text}>€{book?.price}</Text>
         </View>
-
       </View>
-      <Text style={{ marginTop: "30px" }}>{book?.resume}</Text>
-      <Button title="Go back" onPress={() => navigation.goBack()} />
+
+
+      <Text style={{ marginTop: "30px", fontWeight: "bold" }}>
+        {i18n.t("modules.book.description")}
+      </Text>
+      <Text style={{ marginTop: "10px", textAlign: "justify" }}>
+        {lang === "PT" ? book?.resume : book?.resumeEN}
+      </Text>
+      <Button title='Go back' onPress={() => navigation.goBack()} />
     </View>
   );
 };
@@ -32,15 +46,10 @@ const styles = StyleSheet.create({
   mainContainer: {
     marginTop: 100,
     marginHorizontal: 20,
-
-
-
   },
   container: {
-
     flexDirection: "row",
     alignItems: "center",
-
   },
   imageContainer: {
     flex: 1.1,
@@ -73,4 +82,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Book;
+export default BookC;

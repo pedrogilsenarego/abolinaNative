@@ -1,11 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-import { BookType } from "../../../types/types";
 import { ROUTE_PATHS } from "../../../constants/routes";
+import { Book } from "../../../slicer/books/books.types";
 
 interface Props {
-  product: BookType;
+  product: Book;
   style?: object;
 }
 

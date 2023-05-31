@@ -1,10 +1,13 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import Home from "./src/screens/Home/Home";
-import Book from "./src/screens/Book";
+import BookC from "./src/screens/BookC";
 import { useFonts } from "expo-font";
 import MainLayout from "./src/layouts/MainLayout";
 import { ROUTE_PATHS } from "./src/constants/routes";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "./src/slicer/createStore";
 
 const Stack = createStackNavigator();
 
@@ -26,7 +29,7 @@ const HomeScreen = () => {
 
 const BookScreen = ({ route }) => {
   const { book } = route.params;
-  return <Book book={book} />;
+  return <BookC book={book} />;
 };
 
 const App = () => {
@@ -41,15 +44,19 @@ const App = () => {
   if (!loaded) return null;
 
   return (
-    <NavigationContainer theme={theme}>
-      <Stack.Navigator
-        screenOptions={{ headerShown: false }}
-        initialRouteName={ROUTE_PATHS.HOME}
-      >
-        <Stack.Screen name={ROUTE_PATHS.HOME} component={HomeScreen} />
-        <Stack.Screen name={ROUTE_PATHS.BOOK} component={BookScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <NavigationContainer theme={theme}>
+          <Stack.Navigator
+            screenOptions={{ headerShown: false }}
+            initialRouteName={ROUTE_PATHS.HOME}
+          >
+            <Stack.Screen name={ROUTE_PATHS.HOME} component={HomeScreen} />
+            <Stack.Screen name={ROUTE_PATHS.BOOK} component={BookScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PersistGate>
+    </Provider>
   );
 };
 
